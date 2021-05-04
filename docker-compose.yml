@@ -1,0 +1,26 @@
+version: "3.7"
+services:
+  db:
+    image: postgres
+    container_name: library_db
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD_DEV}
+      POSTGRES_USER: ${POSTGRES_USERNAME_DEV}
+      POSTGRES_DB: ${POSTGRES_DATABASE_DEV}
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  library:
+    build:
+      context: ./
+    container_name: library_app
+    volumes:
+      - .:/usr/src/app
+    image: libraryapp
+    links:
+      - db
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
