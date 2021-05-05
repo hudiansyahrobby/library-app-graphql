@@ -1,6 +1,6 @@
 import express from 'express';
-import { bookType } from './typeDefs';
-import { bookResolver } from './resolvers';
+import TypeDefs from './typeDefs';
+import Resolvers from './resolvers';
 import cors from 'cors';
 import { config } from 'dotenv';
 import { ApolloServer } from 'apollo-server-express';
@@ -12,8 +12,8 @@ initDB();
 const PORT = process.env.PORT || 8000;
 
 const server = new ApolloServer({
-    typeDefs: bookType,
-    resolvers: bookResolver,
+    typeDefs: TypeDefs,
+    resolvers: Resolvers,
 });
 
 const app = express();
